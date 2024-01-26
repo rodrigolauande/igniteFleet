@@ -1,0 +1,104 @@
+=> instalação e configurações do projeto padrão
+
+npm install styled-components
+npm install --save-dev @types/styled-components
+npm install --save-dev @types/styled-components-react-native
+
+npx expo install expo-font @expo-google-fonts/roboto
+
+=> definição da 1º pagina no arquivo App.json
+
+{
+    "expo": {
+      "name": "igniteFleet",
+      "slug": "igniteFleet",
+      "version": "1.0.0",
+      "orientation": "portrait",
+      "icon": "./assets/icon.png",
+      "userInterfaceStyle": "dark",
+      "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "cover",
+        "backgroundColor": "#202024"
+      },
+      "assetBundlePatterns": [
+        "**/*"
+      ],
+      "ios": {
+        "supportsTablet": true
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/adaptive-icon.png",
+          "backgroundColor": "#202024"
+        }
+      },
+      "web": {
+        "favicon": "./assets/favicon.png"
+      },
+      "plugins": [
+        "expo-font"
+      ]
+    }
+  }
+
+=> definição do
+  theme,
+  components/Loading,
+  @types/png.d.ts
+  @types/styled.d.ts
+  screens/Signin/index e styles,
+  components/Button,
+
+
+=> OAUTH 2.0 (Autenciação do usuario)
+- react-native-dotenv (cuidando das variaveis de ambiente)
+- npm install -D react-native-dotenv
+configurar o dotenv na aplicação no arquivo babelConfig.config.js
+
+module.exports = function(api) {
+  api.cache(true);
+  return {
+    presets: ['babel-preset-expo'],
+    plugins: [
+      [
+        'module:react-native-dotenv',
+        {
+          'moduleName': '@env',
+          'allowUndefined': false,
+        }
+      ]
+    ]
+  };
+};
+
+
+-definição de uma typagem das variaveis de ambiente
+
+declare module '@env' {
+  export const ANDROID_CLIENT_ID: string;
+  export const IOS_CLIENT_ID: string
+}
+
+- cria as variaveis de ambiente .env raiz do projeto
+
+ANDROID_CLIENT_ID=''
+IOS_CLIENT_ID=''
+
+-import na app.tsx (principal)
+
+import { ANDROID_CLIENT_ID } from '@env';
+
+=> CRIA O PROJETO NO ICLOUD DA GOOGLE
+-CRIAR AS CHAVES PRIVADAS E PUBLICAS
+
+=> muda o projeto para ter acesso as pasta 'android e ios'
+npx expo prebuild
+ele pergunta o nome do pacote 'com.lauande.ignitefleet'
+
+cria a build do projeto novamente instalando as novas configurações
+npx expo run:android
+
+dentro da pasta android digite o comando
+
+
